@@ -19,6 +19,15 @@
 - allowJS = true설정시, 자바스크립트를 컴파일 시켜준다. 점진적으로 ts로 변경가능
 - declaration = true설정시,시 .d.ts파일 생성
 - 나머지는 공식문서를 보는게 좋을것같다. 이하 생략~
+- strict가 붙은 옵션과 noImplictit이 붙은 옵션은 들은 전부 true로 켜두는게 좋다 안그러면 타입스크립트를 쓰는 의미가 매우 줄어듬
+- 타입스크립트는 ES3까지도 변환해주는 설정(target)이 있다.
+- import \* as React와 import React는 엄청난 차이가 존재한다 특히 export default를 할때
+- 초보자라면 strict : true설정만해줘도 가능하다.
+- lib옵션을 따로 설정한다면 ["ES6", "ES2020", "ES2019"]이렇게 다 넣어주는게 좋다.
+- include설정은 어떤 특정파일만 컴파일하겠다.
+- exclude : ["*.js"] => js파일은 컴파일하지 않겠다.
+- 여러개 프로젝트가 있는경우 공통 tsconfig가 있고 프로젝트마다 별개의 tsconfig설정이 존재할경우 extends에서 설정
+- 타입스크립트 핸드북을 처음부터 끝까지 읽어보기 -> what's new 1.1~3.7까지 정독
 
 ### npx란?
 
