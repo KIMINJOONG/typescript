@@ -29,6 +29,94 @@
 - 여러개 프로젝트가 있는경우 공통 tsconfig가 있고 프로젝트마다 별개의 tsconfig설정이 존재할경우 extends에서 설정
 - 타입스크립트 핸드북을 처음부터 끝까지 읽어보기 -> what's new 1.1~3.7까지 정독
 
+### 배열
+
+- 배열의 개수가 3인경우, 엄격하게 하는것이좋다
+
+```
+let arr: number[] = [1,2,3,4];
+let arr: string[] = ['1','2','3'];
+let arr: [boolean, number, string] = [true, 2, '3']; // Tuple
+
+arr[4] = true => 에러
+```
+
+### 상수
+
+- 타입을 엄격하게 지정하여 상수처럼 사용 가능
+- 객체 역시 const를 붙여주면 안에 내부값도 변경 할 수 없다.
+
+```
+let str = 'hello' as const;
+str = 'hi' -> error
+let arr = [true, 2, '3'] as const;
+
+const obj = { a: 'b' } as const;
+obj.a = 'c';
+
+
+```
+
+### 객체에서 타입선언
+
+```
+const obj : { a: string, b: number } = { a: 'b'}; => error, 타입에는 b가있지만 실제 값에 b가 존재하지않아서
+```
+
+- 타입을 선언했는데 처음에는 없다가 나중에 생기는 경우! ?를 붙여주면 된다! 있을지 없을지 모르는경우에는 뒤에 ?꼭 붙여주기
+
+```
+const obj : { a: string, b?: number } = { a: 'b'};
+
+obj.b = 3
+```
+
+### enum
+
+```
+enum Color { Red, Green, Blue}
+let c: Color = Color.Green;
+```
+
+### 함수
+
+- 타입을 명시해서 함수를 작성하는 방법
+- 함수에 return을 사용하지않을시 void로 타입을 선언해주면 됨
+
+```
+function add(a: number, b: number): number {
+    return a + b;
+}
+```
+
+- 함수가 함수를 리턴할때(고차함수)
+- 함수 자체를 타입으로 쓸때는 매개변수 => 리턴타입으로 해주면됨 (고차함수는 가독성이 매우 안좋아진다.)
+
+```
+function add(a: number, b: number): (c: string) => number {
+    return (c: string) => {
+        return 3;
+    }
+}
+```
+
+- 객체안에 함수가 존재하는 경우
+
+```
+const obj2: { a: (b: number) => string } = {
+    a(b: number) {
+        return 'hello'
+    }
+}
+
+// 매개변수가 있어도 되고 없어도 되는경우 ?를 붙여준다. 오버로딩
+const obj2: { a: (b?: number) => string } = {
+    a(b?: number) {
+        return 'hello'
+    }
+}
+```
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
