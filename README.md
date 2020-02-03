@@ -117,6 +117,30 @@ const obj2: { a: (b?: number) => string } = {
 }
 ```
 
+### never, any
+
+- 대부분의 경우는 배열을 의도와다르게 잘못만들었을때 never 라는 에러가 발생한다.
+- 타입을 빈배열로 만들고 푸시를 하면 never에러 발생
+- any는 뭐든 다 될수있다 배열, 스트링, 넘버, 오브젝트 등 그러나 타입스크립트를 쓰는데 any를 쓰는건 좋지않다. 그러나 어쩔수없는 경우에는 사용해야함 또는 타입 정의 할때 너무 복잡해서 못만들겠을 경우사용
+
+### 타입캐스팅
+
+- ex)리액트 플러그인? 등 라이브러리 만들때 다음상황이 많이 생긴다.
+
+```
+const hello: number = 3;
+
+완전히 다른타입으로 바꾸는 경우?(강제로 변경)
+
+아래와 같이 number타입을 string타입으로 캐스팅을 할 수 있다.
+(hello as unknown as string).substr(1,2);
+(<string><unknown>hello).substr(1,2);
+
+서로 관계가 있는경우?(상속을 받는지 등)
+const div = document.createElement("div");
+const a = div as HTMLElement;
+```
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
