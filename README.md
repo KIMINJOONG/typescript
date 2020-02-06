@@ -141,6 +141,11 @@ const div = document.createElement("div");
 const a = div as HTMLElement;
 ```
 
+#### 타입은 언제붙히는게 좋을까
+
+- 남이만들어놓은 타입은 타입추론을 이용한게 좋다. 왜냐? 혹시나 업데이트를 해버리면 괜히 타입붙혔다가 에러가 발생함
+- 내가 만들어놓은것만 붙여주는게 좋다.
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
