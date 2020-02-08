@@ -1,9 +1,9 @@
 let imgCoords = "0";
 
 interface RSP {
-  readonly ROCK: string;
-  readonly SCISSOR: string;
-  readonly PAPER: string;
+  readonly ROCK: "0";
+  readonly SCISSOR: "-142px";
+  readonly PAPER: "-284px";
 }
 
 const rsp: RSP = {
@@ -12,13 +12,19 @@ const rsp: RSP = {
   PAPER: "-284px"
 };
 
+interface Example {
+  a: 3;
+  b: 7;
+  [key: string]: number;
+}
+
 const score = {
   ROCK: 0,
   SCISSOR: 1,
   PAPER: -1
 } as const;
 
-function computerChoice(imgCoords): "ROKC" | "SCISSORS" | "PAPER" {
+function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
   return Object.keys(rsp).find(k => rsp[k] === imgCoords);
 }
 

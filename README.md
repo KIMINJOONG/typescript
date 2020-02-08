@@ -146,6 +146,83 @@ const a = div as HTMLElement;
 - 남이만들어놓은 타입은 타입추론을 이용한게 좋다. 왜냐? 혹시나 업데이트를 해버리면 괜히 타입붙혔다가 에러가 발생함
 - 내가 만들어놓은것만 붙여주는게 좋다.
 
+#### interface
+
+```
+interface RSP {
+  ROCK: "0";
+  SCISSOR: "-142px";
+  PAPER: "-284px";
+}
+
+const rsp: RSP = {
+  ROCK: "0",
+  SCISSOR: "-142px",
+  PAPER: "-284px"
+} as const;
+
+위와같이 해줘도 무방하지만 보통 interface에서는 저렇게 값을 넣지않고 타입을 선언해주기때문에
+앞에 readonly를 붙혀주는게 좋다
+
+interface RSP {
+  readonly ROCK: string;
+  readonly SCISSOR: string;
+  readonly PAPER: string;
+}
+
+const rsp: RSP = {
+  ROCK: "0",
+  SCISSOR: "-142px",
+  PAPER: "-284px"
+};
+```
+
+1. 특징
+
+- 객체를 어떤형식으로 만들어야할지(클래스와 비슷함)
+- 서로간의 상속이 가능하다.
+- 같은 이름으로 여러개를 만들수있고 js로 변환될때 하나로 합쳐짐(남의 라이브러리가 문제점이 있거나 수정하고싶을때 사용하면 됨)
+- 주로 객체에 많이 사용함
+
+#### 객체의 인터페이스가 확실하지 않을때?
+
+- 왠만하면 타입을 엄격하게 지정하는게 좋지만 정말 불가피한 상황일때는 아래와 같이 interface를 선언하여 여유를 준다.
+
+```
+interface Example {
+  a: 3,
+  b: 7,
+  [key: string]: number;
+}
+
+const example: Example = {
+  a: 3,
+  b: 7,
+  c: 1
+}
+
+```
+
+#### type ?(타입 앨리어스라고 부름)
+
+1. 특징
+
+- 인터페이스처럼 합쳐지지 않는다. 무조건 하나만 존재함
+- 타입이 좀 더 넓은 범위
+- 보통 | 과 같이 씀, 객체를 사용할때는 왠만하면 인터페이스를 사용하는게 좋다. 한 코드에서 두가지 방식을 쓰는건 좋지않다.
+- 타입시스템을 쓸 경우에 주로 많이 사용
+- 아래와 같이 새로운 타입을 만들어냄
+
+```
+type Hello = string | number;
+
+type Hello = {
+  ROCK: string;
+  PAPER: string;
+} | string;
+
+```
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
