@@ -24,8 +24,11 @@ const score = {
   PAPER: -1
 } as const;
 
+// ROCK | SCISSORS | PAPER // union 이라고 부른다
 function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
-  return Object.keys(rsp).find(k => rsp[k] === imgCoords);
+  return (Object.keys(rsp) as ["ROCK", "SCISSOR", "PAPER"]).find(
+    (k) => rsp[k] === imgCoords)!
+  );
 }
 
 document.querySelectorAll(".btn").forEach(btn => {

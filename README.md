@@ -223,6 +223,44 @@ type Hello = {
 
 ```
 
+---
+
+- tsconfig에서 lib를 설정하지않으면 기본값으로 es5와 dom만 사용한다.
+- 혹시나 es6문법이나 그이상의 문법을 사용한다면 아래와같이 추가해주면된다.
+
+```
+tsconfig.json
+
+{
+  "compilerOptions": {
+    "strict": true,
+    "lib": [
+      "ES5",
+      "ES6",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "DOM"
+    ]
+  },
+  "exclude": ["*.js"]
+}
+
+```
+
+- 아래의 상황처럼 imgCoords)!에서 !는?
+- 타입시스템에서는 값이 없을수있다고 경고를 하지만 개발자인 내가 무조건 값이 있다는 보증을 하는것이다. 즉 타입스크립트에서 undefined경고를 줬지만 프로그래머가 무시를 하는것이기때문에 실수를하면 에러가 날 가능성이 있다. null일 경우도 가능
+
+```
+function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
+  return (Object.keys(rsp) as ["ROCK", "SCISSOR", "PAPER"]).find(
+    (k) => rsp[k] === imgCoords)!
+  );
+}
+```
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
