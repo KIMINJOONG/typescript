@@ -261,6 +261,26 @@ function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
 }
 ```
 
+- 화살표함수안에서 this를 사용할경우 매개변수첫번째에 this가 무엇인지 타입을 정해주어야한다.
+
+```
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", function(this:HTMLButtonElement, e: Event) {
+    const myChoice = this.textContent;
+    const myScore = score[myChoice];
+    const computerScore = score[computerChoice(imgCoords)];
+    const diff = myScore - computerScore;
+    if (diff === 0) {
+      console.log("비겼습니다.");
+    } else if ([-1, 2].indexOf(diff)) {
+      console.log("이겼습니다!!");
+    } else {
+      console.log("졌습니다 ㅜㅜ");
+    }
+  });
+});
+```
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
