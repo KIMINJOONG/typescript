@@ -1,14 +1,14 @@
-let imgCoords = "0";
+let imgCoords: RSP[keyof RSP] = "0";
 
 interface RSP {
   readonly ROCK: "0";
-  readonly SCISSOR: "-142px";
+  readonly SCISSORS: "-142px";
   readonly PAPER: "-284px";
 }
 
 const rsp: RSP = {
   ROCK: "0",
-  SCISSOR: "-142px",
+  SCISSORS: "-142px",
   PAPER: "-284px"
 };
 
@@ -20,20 +20,20 @@ interface Example {
 
 const score = {
   ROCK: 0,
-  SCISSOR: 1,
+  SCISSORS: 1,
   PAPER: -1
 } as const;
 
 // ROCK | SCISSORS | PAPER // union 이라고 부른다
 function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
-  return (Object.keys(rsp) as ["ROCK", "SCISSOR", "PAPER"]).find(
-    (k) => rsp[k] === imgCoords)!
-  );
+  return (Object.keys(rsp) as ["ROCK", "SCISSORS", "PAPER"]).find(
+    k => rsp[k] === imgCoords
+  )!;
 }
 
 document.querySelectorAll(".btn").forEach(btn => {
-  btn.addEventListener("click", function() {
-    const myChoice = this.textContetnt;
+  btn.addEventListener("click", function(this: HTMLButtonElement, e: Event) {
+    const myChoice = this.textContent as keyof RSP;
     const myScore = score[myChoice];
     const computerScore = score[computerChoice(imgCoords)];
     const diff = myScore - computerScore;

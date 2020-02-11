@@ -1,20 +1,22 @@
+"use strict";
 var imgCoords = "0";
 var rsp = {
     ROCK: "0",
-    SCISSOR: "-142px",
+    SCISSORS: "-142px",
     PAPER: "-284px"
 };
 var score = {
     ROCK: 0,
-    SCISSOR: 1,
+    SCISSORS: 1,
     PAPER: -1
 };
+// ROCK | SCISSORS | PAPER // union 이라고 부른다
 function computerChoice(imgCoords) {
     return Object.keys(rsp).find(function (k) { return rsp[k] === imgCoords; });
 }
 document.querySelectorAll(".btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-        var myChoice = this.textContetnt;
+    btn.addEventListener("click", function (e) {
+        var myChoice = this.textContent;
         var myScore = score[myChoice];
         var computerScore = score[computerChoice(imgCoords)];
         var diff = myScore - computerScore;

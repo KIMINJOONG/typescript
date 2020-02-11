@@ -12,5 +12,6 @@
       "DOM"
     ]
   },
-  "exclude": ["*.js"]
+  "exclude": ["*.js"],
+  "include": ["lecture.ts"]
 }
