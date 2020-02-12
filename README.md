@@ -261,7 +261,7 @@ function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
 }
 ```
 
-- 화살표함수안에서 this를 사용할경우 매개변수첫번째에 this가 무엇인지 타입을 정해주어야한다.
+- 함수안에서 this를 사용할경우 매개변수첫번째에 this가 무엇인지 타입을 꼭 정해주어야한다.
 
 ```
 document.querySelectorAll(".btn").forEach(btn => {
@@ -279,6 +279,36 @@ document.querySelectorAll(".btn").forEach(btn => {
     }
   });
 });
+```
+
+---
+
+## 타입스크립트에서 null과 undefined
+
+- tsconfig.json에서 "strictNullChecks": true, 옵션을 추가해주면 null과 undefined를 구분한다.
+- 변수명뒤에 ?를 붙여도 해당 물음표는 undefined를 의미하는것이기 때문에 null은 제외가 된다. 빈 값을 의도적으로 넣었음을 알리기 위해 null을 사용
+- 타입스크립트의 효과를 보려면 strict옵션은 무조건 true로 주는게 가장좋다!
+
+```
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "lib": [
+      "ES5",
+      "ES6",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "DOM"
+    ]
+  },
+  "exclude": ["*.js"],
+  "include": ["lecture.ts"]
+}
+
 ```
 
 ### npx란?

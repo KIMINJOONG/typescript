@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "strict": true,
-    "strictNullChecks": true,
     "lib": [
       "ES5",
       "ES6",
