@@ -1,3 +1,41 @@
+interface ICard {
+  att?: number;
+  hp?: number;
+  cost?: number;
+}
+
+class Card implements ICard {
+  protected att?: number;
+  protected hp?: number;
+  private cost?: number;
+  private mine?: boolean;
+
+  constructor(hero: boolean, mine: boolean) {
+    if (hero) {
+      return new Hero(mine);
+    } else {
+      this.att = Math.ceil(Math.random() * 5);
+      this.hp = Math.ceil(Math.random() * 5);
+      this.cost = Math.floor((this.att + this.hp) / 2);
+    }
+    if (mine) {
+      this.mine = true;
+    }
+  }
+}
+
+class Hero extends Card {
+  private hero: boolean;
+  private field: boolean;
+  constructor(mine: boolean) {
+    super(true, mine);
+    this.att = Math.ceil(Math.random() * 2);
+    this.hp = Math.ceil(Math.random() * 5) + 25;
+    this.hero = true;
+    this.field = true;
+  }
+}
+
 interface Card {
   att: number;
   hp: number;

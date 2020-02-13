@@ -311,6 +311,30 @@ document.querySelectorAll(".btn").forEach(btn => {
 
 ```
 
+---
+
+#### class?
+
+- public, protected, private이 존재, 각각의 의미와 사용법은 자바랑 동일하다고 보면된다.
+
+1. public
+
+- 모두에게 공개
+
+2. protected
+
+- 자식에게만 공개(부모에게는 공개안함)
+
+3. private
+
+- 외부에서 접근 불가
+
+- interface에서는 public, protected, private는 사용할수 없다.
+
+#### interface?
+
+- 존재해야되는것을 강제해야할때 주로 클래스에서 상속받아서 사용함
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
