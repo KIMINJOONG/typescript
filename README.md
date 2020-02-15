@@ -334,6 +334,57 @@ document.querySelectorAll(".btn").forEach(btn => {
 #### interface?
 
 - 존재해야되는것을 강제해야할때 주로 클래스에서 상속받아서 사용함
+- 꼭 객체를 표현하는거 뿐만아니라, 함수나 클래스도 표현해줄 수 있긴 하지만 잘 안쓰는듯 하다..?
+
+#### Generic(제네릭)?
+
+- 타입스크립트를 보면 <>를 볼 수 있다. 쉽게 얘기하면 짝맞추기 입니다.
+- 아래의 함수로 나는 분명히 숫자도 더하게 하고 싶고 문자도 더하고 싶은 경우
+
+```
+function add(a: number, b: number) {
+  return a + b;
+}
+
+function add(a: string, b: string) {
+  return a + b;
+}
+
+중복 에러 발생
+
+
+function add(a: string | number, b: string | number): string | number {
+  return a + b;
+}
+add(1, 'abc');
+add(1, 2);
+add('a', 'b');
+
+셋 다 가능 하지만 나의 의도는 숫자끼리, 문자끼리만 더 할 수 있게하고싶은 경우? add(1, 'abc')는 에러가 나야하는경우?
+그럴 때 사용하는 것이 제네릭!
+```
+
+- 그럼 제네릭을 사용한 경우를 알아보자
+
+```
+interface obj<T> {
+  add: (a: T, b: T) => T;
+}
+
+const a: obj<number> = {
+  add: (a, b) => a + b;
+}
+
+const b: obj<string> = {
+  add: (a, b) => a + b;
+}
+a.add(1,2);
+a.add('a', 'b'); => error
+b.add('a', 'b');
+b.add(1,2); => error
+```
+
+- 인터페이스 선언은 여유롭게! 실제 함수로 사용할때는 확실하게!
 
 ### npx란?
 
