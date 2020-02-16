@@ -385,6 +385,8 @@ b.add(1,2); => error
 ```
 
 - 인터페이스 선언은 여유롭게! 실제 함수로 사용할때는 확실하게!
+- callback에서 특별히 true, false를 반환하는 함수는 predicate라고 이름을 붙힌다. .find 함수 타입참조
+- 특별히 true, false를 반환하지않으면 callback
 
 ### npx란?
 

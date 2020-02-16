@@ -69,3 +69,9 @@ const me: Player = {
   chosenCard: null,
   chosenCardData: null
 };
+
+function forEach<T>(arr: T[], callback: (item: T) => void): void {
+  for (let i: number = 0; i < arr.length; i++) {
+    callback(arr[i]);
+  }
+}
