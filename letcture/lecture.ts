@@ -3,7 +3,7 @@ interface Card {
   hp: number;
   mine: boolean;
   field: boolean;
-  const?: number;
+  cost?: number;
   hero?: boolean;
 }
 
@@ -70,8 +70,88 @@ const me: Player = {
   chosenCardData: null
 };
 
-function forEach<T>(arr: T[], callback: (item: T) => void): void {
-  for (let i: number = 0; i < arr.length; i++) {
-    callback(arr[i]);
-  }
+const turnButton = document.getElementById("turn-btn") as HTMLButtonElement;
+let turn = true;
+
+function initiate() {
+  [opponent, me].forEach(item => {
+    item.deckData = [];
+    item.heroData = null;
+    item.fieldData = [];
+    item.chosenCard = null;
+    item.chosenCardData = null;
+  });
+  createDeck({ mine: false, count: 5 });
+  createDeck({ mine: false, count: 5 });
+  createHero({ mine: false });
+  createHero({ mine: true });
+  redrawScreen({ mine: true });
+  redrawScreen({ mine: false });
 }
+
+initiate();
+
+function createDeck({ mine, count }: { mine: boolean; count: number }) {
+  const player = mine ? me : opponent;
+  for (let i: number = 0; i < count; i++) {
+    player.deckData.push(new Sub(mine));
+  }
+  redrawDeck(player);
+}
+
+function createHero({ mine }: { mine: boolean }) {
+  const plyaer = mine ? me : opponent;
+  plyaer.heroData = new Hero(mine);
+  connectCardDom({ data: plyaer.heroData, DOM: plyaer.hero, hero: true });
+}
+
+function connectCardDom({
+  data,
+  DOM,
+  hero
+}: {
+  data: Card;
+  DOM: HTMLDivElement;
+  hero?: boolean;
+}) {
+  const cardEl = document
+    .querySelector(".card-hidden .card")!
+    .cloneNode(true) as HTMLDivElement;
+  cardEl.querySelector(".card-att")!.textContent = String(data.att);
+  cardEl.querySelector(".card-hp")!.textContent = String(data.hp);
+  if (hero) {
+    (cardEl.querySelector(".card-cost") as HTMLDivElement).style.display =
+      "none";
+    const name = document.createElement("div");
+    name.textContent = "영웅";
+    cardEl.appendChild(name);
+  } else {
+    cardEl.querySelector(".card-cost")!.textContent = String(data.cost);
+  }
+  DOM.appendChild(cardEl);
+}
+
+function redrawScreen({ mine }: { mine: boolean }) {
+  const player = mine ? me : opponent;
+  redrawHero(player);
+}
+
+function redrawHero(target: Player) {
+  if (!target.heroData) {
+    throw new Error("hero Data가 없습니다.");
+  }
+  target.hero.innerHTML = "";
+  connectCardDom({ data: target.heroData, DOM: target.hero, hero: true });
+}
+
+function redrawDeck(target: Player) {
+  target.deck.innerHTML = "";
+  target.deckData.forEach(data => {
+    connectCardDom({ data, DOM: target.deck });
+  });
+}
+// function forEach<T>(arr: T[], callback: (item: T) => void): void {
+//   for (let i: number = 0; i < arr.length; i++) {
+//     callback(arr[i]);
+//   }
+// }
