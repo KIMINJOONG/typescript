@@ -18,6 +18,21 @@ var Sub = /** @class */ (function () {
     }
     return Sub;
 }());
+// 타입 가드
+function isSub(data) {
+    if (data.cost) {
+        //쫄병이면
+        return true;
+    }
+    return false;
+}
+function isHero(data) {
+    if (data.hero) {
+        //영웅이면
+        return true;
+    }
+    return false;
+}
 var opponent = {
     hero: document.getElementById("rival-hero"),
     deck: document.getElementById("rival-deck"),
@@ -89,6 +104,13 @@ function connectCardDom(_a) {
     else {
         cardEl.querySelector(".card-cost").textContent = String(data.cost);
     }
+    cardEl.addEventListener("click", function () {
+        if (isSub(data) && data.mine === turn && !data.field) {
+            if (!deckTofield({ data: data })) {
+                createDeck({ mine: turn, count: 1 });
+            }
+        }
+    });
     DOM.appendChild(cardEl);
 }
 function redrawScreen(_a) {
@@ -108,6 +130,29 @@ function redrawDeck(target) {
     target.deckData.forEach(function (data) {
         connectCardDom({ data: data, DOM: target.deck });
     });
+}
+function redrawField(target) {
+    target.field.innerHTML = "";
+    target.fieldData.forEach(function (data) {
+        connectCardDom({ data: data, DOM: target.field });
+    });
+}
+function deckTofield(_a) {
+    var data = _a.data;
+    var target = turn ? me : opponent;
+    var currentCost = Number(target.cost.textContent);
+    if (currentCost < data.cost) {
+        alert("코스트가 모자랍니다.");
+        return true;
+    }
+    data.field = true;
+    var idx = target.deckData.indexOf(data);
+    target.deckData.splice(idx, 1);
+    target.fieldData.push(data);
+    redrawDeck(target);
+    redrawField(target);
+    target.cost.textContent = String(currentCost - data.cost); // 남은 코스트 줄이기
+    return false;
 }
 // function forEach<T>(arr: T[], callback: (item: T) => void): void {
 //   for (let i: number = 0; i < arr.length; i++) {
