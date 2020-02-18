@@ -388,6 +388,20 @@ b.add(1,2); => error
 - callback에서 특별히 true, false를 반환하는 함수는 predicate라고 이름을 붙힌다. .find 함수 타입참조
 - 특별히 true, false를 반환하지않으면 callback
 
+### 타입가드?
+
+- is를 사용해서 카드라는 큰 클래스가 있으면 그중에서 쫄병인지 아닌지 구분이 됨
+
+```
+function isSub(data: Card): data is Sub {
+  if (data.cost) {
+    //쫄병이면
+    return true;
+  }
+  return false;
+}
+```
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
