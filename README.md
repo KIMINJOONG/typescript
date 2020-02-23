@@ -402,6 +402,39 @@ function isSub(data: Card): data is Sub {
 }
 ```
 
+### nodejs의 모듈시스템
+
+- common js라고 부름.
+- typescript의 모듈시스템은 따로있음. 자바스크립트의 최신문법 ES2015모듈 시스템을 그대로 계승
+
+#### 둘의 차이?
+
+- 모듈은 다른파일에서 사용할수있게끔 만드는것. 코딩을 계속하다보면 한파일이 길어지니까 가독성과 재사용성을 높이기위해 모듈로 만들어줌
+- typescript는 commonJS도 지원한다.
+- 큰 차이는 default에서 차이가남 다이나믹인지 스태틱인지, 동적인지 정적인지
+- exports와 module.exports는 둘중에 하나만 쓰는게 좋다.
+- export와 export default 즉 default라는게 생기고 module.exports는 사라짐
+- default라는게 새로 생겨서 export와 충돌하지않는다.
+
+```
+export const a = 'b';
+// exports.a = 'b';
+
+export default function() {
+
+};
+// module.exports = function() {}; -> 같지않음
+```
+
+- 어떤 모듈이 commonJS문법으로 작성됐다면? 타입스크립트에서 가져올때는..
+
+```
+import * as hi from './module';로 가져오는게 문법적으로 맞다! 주의할것
+import hi from './module';로 사용하고싶다면 esModuleInterop을 true옵션을 줘야함
+```
+
+- 정리: commonJS문법으로 작성된것을 import할때는 반드시 import \* as 이름명 from './module';로 가져올것!
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
