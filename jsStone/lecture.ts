@@ -1,12 +1,4 @@
-interface Card {
-  att: number;
-  hp: number;
-  mine: boolean;
-  field: boolean;
-  cost?: number;
-  hero?: boolean;
-}
-
+import { Card, Player } from "./types";
 class Hero implements Card {
   public att: number;
   public hp: number;
@@ -53,17 +45,6 @@ function isHero(data: Card): data is Sub {
   return false;
 }
 
-interface Player {
-  hero: HTMLDivElement;
-  deck: HTMLDivElement;
-  field: HTMLDivElement;
-  cost: HTMLDivElement;
-  deckData: Card[];
-  heroData?: Card | null;
-  fieldData: Card[];
-  chosenCard?: HTMLDivElement | null;
-  chosenCardData?: Card | null;
-}
 const opponent: Player = {
   hero: document.getElementById("rival-hero") as HTMLDivElement,
   deck: document.getElementById("rival-deck") as HTMLDivElement,

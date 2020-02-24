@@ -435,6 +435,25 @@ import hi from './module';로 사용하고싶다면 esModuleInterop을 true옵�
 
 - 정리: commonJS문법으로 작성된것을 import할때는 반드시 import \* as 이름명 from './module';로 가져올것!
 
+---
+
+- import와 export가 있으면 모듈이되고 없으면 그냥 스크립트임.
+- 보통 interface등 타입선언과 관련된것은 모듈로빼서 재사용성과 가독성을 높이는게 좋다.
+
+### d.ts
+
+- 라이브러리에 사용되는 모든 타입들을 선언해둔 ㅍ파일
+- 내 프로젝트가 라이브러리 일때 사용.
+
+```
+function a() {}
+
+export = a;
+
+```
+
+- 그런것들을 import할때는 require을 사용한다. 위와같은 소스는 commonJS문법이기 때문에
+
 ### npx란?
 
 - npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
