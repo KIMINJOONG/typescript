@@ -477,6 +477,11 @@ declare const $CombinedState: unique symbol
 /// <reference types="symbol-observable" />
 ```
 
+### DefinitelyTyped?
+
+-   타입이 안되어있는 라이브러리들을 누군가가 타입을 만들어 놓은것! d3js, jQuery, react등등
+-   자체적으로 타입을 지원하지않는 라이브러리라면 @types/jquery, @types/라이브러리명 을하여서 타입을 받아서 사용하는게 좋다
+
 ### npx란?
 
 -   npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
