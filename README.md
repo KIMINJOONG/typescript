@@ -482,6 +482,83 @@ declare const $CombinedState: unique symbol
 -   타입이 안되어있는 라이브러리들을 누군가가 타입을 만들어 놓은것! d3js, jQuery, react등등
 -   자체적으로 타입을 지원하지않는 라이브러리라면 @types/jquery, @types/라이브러리명 을하여서 타입을 받아서 사용하는게 좋다
 
+### intersection & call, apply
+
+```
+interface A {
+    hello: true;
+}
+
+interface B {
+    bye: true;
+}
+
+type C = {
+    hi: false;
+};
+
+const a: A = {
+    hello: true
+};
+
+const b: B = {
+    bye: true
+};
+
+아래는 인터섹션 3개 전부 만족해야함
+const c: A & B & C = {
+    hello: true,
+    bye: true,
+    hi: false
+};
+
+아래는 셋중 하나만 만족하면 됌
+const c: A | B | C = {
+  hello: true,
+}
+
+```
+
+1. 처음부터 만족하게 만들면 되는데 왜 A B C를 쪼개놓은걸까?
+
+-   만일 interface D가 필요한데 아래와 같을때 이미 존재하는 A, B, C와 중복이 되기때문에 중복 최소화
+
+```
+interface D {
+    hello: true;
+    bye: true;
+    hi: false;
+}
+```
+
+2. call, bind, apply는 타입추론이 잘 안된다.
+
+-   그러나 타입스크립트가 업데이트되면서 strictBindCallApply라는 옵션이 생겨서 true를 주면 더 엄격하게 변한다.
+-   엄격해지면 너무 복잡해져서 단점도 있다.
+
+```
+const reuslt = Array.prototype.map.call([1, 2, 3], item => {
+    return item.toFixed(1);
+});
+
+// [1,2,3] = T, (item) => {return item.toFiexed(1)} = Args
+// [1,2,3].map((item => {return item.toFiexed(1)}))
+
+// 정확하게 타이핑을 해주면 아래와 같다.
+const reuslt1 = Array.prototype.map.call<
+    number[],
+    [(item: number) => string],
+    string[]
+>([1, 2, 3], item => {
+    return item.toFixed(1);
+});
+
+//result: ['1.0', '2.0', '3.0']
+```
+
+-   같은함수가 타입이 현저하게 다른건 여러개 나열하는데 이걸 function 오버로딩이라고 한다.
+-   타이핑이 힘들다. any타입을 최대한 지향해야하지만..써줄수밖에없다.
+
 ### npx란?
 
 -   npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
