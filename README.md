@@ -559,6 +559,74 @@ const reuslt1 = Array.prototype.map.call<
 -   같은함수가 타입이 현저하게 다른건 여러개 나열하는데 이걸 function 오버로딩이라고 한다.
 -   타이핑이 힘들다. any타입을 최대한 지향해야하지만..써줄수밖에없다.
 
+### ts utility Types
+
+-   ts 핸드북에 있는거 꼭 보기!!
+
+1. partial
+
+-   인터페이스로 선언된 A의 일부분만 써줄수있다.
+
+```
+interface A {
+    a: "b";
+    c: true;
+    d: 123;
+}
+const a: A = {
+    a: "b",
+    c: true,
+    d: 123
+};
+
+const b: Partial<A> = {
+    c: true,
+    d: 123
+};
+```
+
+2. Readonly<제네릭>
+
+-   하나하나 readonly를 붙혀줄필요없이 전부적용
+
+```
+interface A {
+    a: "b";
+    c: true;
+    d: 123;
+}
+const c: Readonly<A> = {
+    a: "b",
+    c: true,
+    d: 123
+};
+```
+
+3. Pick<T,K>
+
+-   인터페이스에 선언된것중 명시한것만 뽑아서 사용하겠다
+
+```
+interface Todo {
+    title: string;
+    desc: string;
+    completed: boolean;
+}
+
+type TodoPreview = Pick<Todo, "title" | "completed">;
+
+const todo: TodoPreview = {
+    title: "Clean room",
+    completed: false
+};
+```
+
+4. Omit
+
+-   Pick과 딱 반대
+
+-   중복되는 코드와 중복되는 행동들을 줄이기 위해서는 ts공식문서에서 utility types 꼭 보기!!
+
 ### npx란?
 
 -   npx를 사용하면 global로 설치하지 않아도 명령어 사용가능하다. npm i typescript, npm i -g typescript에서 -g로 설치안해도 npx붙이면 전역으로 명령어 사용가능
